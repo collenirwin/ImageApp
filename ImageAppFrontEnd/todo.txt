@@ -1,0 +1,17 @@
+Add footer
+    About
+    Licenses
+    Contact?
+    Previous daily images
+        will tell you if you participated or not in each image
+        Highest upvoted answer will be the caption
+Add nav droor
+    not signed in
+        sign up
+        log in
+    signed in
+        account
+        profile
+        likes
+        images?
+    all links

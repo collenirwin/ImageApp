@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style type="text/css">
+        a, button, input[type=submit],
+        .button, #comment-form > label {
+            color : #FF847C;
+            background: transparent;
+        }
+
+        .button {
+            margin-left: 10px;
+        }
+
+        button:hover, button:active,
+        input[type=submit]:hover, input[type=submit]:active,
+        .button:hover, .button:active,
+        #navbar-right > a:hover, #navbar-right > a:active {
+            color: #2A363B;
+            background-color: #FF847C;
+        }
+
+        #comment-textbox {
+            color: #FF847C;
+            border-color: #FF847C;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+
+        <nav id="navbar">
+            <div id="navbar-left">
+                <button id="nav-droor-button" v-on:click="toggleNavDroor">{{ hamburgerText }}</button>
+                <a id="navbar-logo" class="logo" asp-controller="Home" asp-action="Index">Grid.Cool</a>
+            </div>
+
+            <div id="navbar-right">
+                <a asp-controller="Account" asp-action="Register">Sign up</a><!--
+                --><a asp-controller="Account" asp-action="Register">Log in</a>
+            </div>
+        </nav>
+
+        <div id="nav-droor">
+            <div class="nav-droor" v-bind:class="{ 'nav-droor-open': isOpen }">
+                <ul class="nav-droor-ul">
+                    <li class="nav-droor-header">Account</li>
+                    <!--@if (signInManager.IsSignedIn(User))
+                    {
+                        <li><a href="/@userManager.GetUserName(User)">Profile</a></li>
+                        <li><a asp-action="Manage" title="Manage">Manage</a></li>
+                        <li><a href="javascript:document.getElementById('logout-form').submit();">Log out</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Account" asp-action="Register">Sign up</a></li>
+                        <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
+                    }-->
+                </ul>
+
+                <ul class="nav-droor-ul">
+                    <li class="nav-droor-header">Links</li>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a target="_blank" href="https://github.com/collenirwin/ImageApp">GitHub</a></li>
+                    <li><a asp-controller="Licenses" asp-action="Index">Licenses</a></li>
+                    <li><a asp-controller="Tos" asp-action="Index">Terms of service</a></li>
+                    <li><a asp-controller="Privacy" asp-action="Index">Privacy</a></li>
+                </ul>
+            </div>
+
+            <div id="nav-droor-blanket" class="nav-droor-blanket"
+                v-bind:class="{ 'hidden': !isOpen }"
+                v-on:click="toggle">
+            </div>
+        </div>
+
+        <div id="content" style="height: 700px;">
+            <input type="hidden" id="grid-color" value="#FF847C" />
+            <input type="hidden" id="grid-json" value="[[0,1,0],[1,0,0],[1,1,1],[1,0,1],[0,1,0],[0,0,1]]" />
+    
+            <div id="canvas-container" class="hidden">
+                    <canvas id="main-canvas" v-bind:width="canvasSize" v-bind:height="canvasSize"></canvas>
+    
+                    <form method="post" id="comment-form" class="hidden flex-container">
+                        <label for="comment">What do you see?</label>
+    
+                        <div class="flex-break"></div>
+    
+                        <input type="text" name="comment" id="comment-textbox"
+                            v-bind:maxlength="commentMaxLength" v-on:input="updateCharsLeftReadout($event)" required />
+    
+                        <label style="margin-left: 10px;">{{ charsLeftReadout }}</label>
+    
+                        <input type="submit" value="Submit" class="button" />
+                    </form>
+            </div>
+        </div>
+
+        <footer id="footer">
+
+            <div class="footer-logo-div">
+                <a asp-controller="Home" asp-action="Index"><h3 class="logo">Grid.Cool</h3></a>
+                <p style="font-size: 0.8em;">&copy; 2018 Collen Irwin</p>
+            </div>
+
+            <ul class="footer-links">
+                <li>Links</li>
+                <br />
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Daily" asp-action="Index">Daily</a></li>
+                <li><a asp-controller="Home" asp-action="About">About</a></li>
+                <li><a target="_blank" href="https://github.com/collenirwin/ImageApp">GitHub</a></li>
+                <br />
+                <li><a asp-controller="Licenses" asp-action="Index">Licenses</a></li>
+                <li><a asp-controller="Tos" asp-action="Index">Tos</a></li>
+                <li><a asp-controller="Privacy" asp-action="Index">Privacy</a></li>
+            </ul>
+            
+        </footer>
+    </div>
+
+    <script src="js/navdroor.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/image.js"></script>
+</body>
+</html>
