@@ -35,9 +35,13 @@ const vm = new Vue({
             // we want to make sure pixels is empty
             this.pixels = [];
 
+            // we want to reflect the whole image if the size is even,
+            // but we omit the center column in the reflection if the size is odd
+            const sliceEnd = imageHalf.length % 2 === 0 ? imageHalf.length : -1;
+
             // reflect the image half upon the y axis to get the full image
             for (let x = 0; x < imageHalf.length; x++) {
-                this.pixels.push(imageHalf[x].concat(imageHalf[x].slice(0).reverse()));
+                this.pixels.push(imageHalf[x].concat(imageHalf[x].slice(0, sliceEnd).reverse()));
             }
 
             this.pixelsPopulated = true;
