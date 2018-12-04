@@ -1,0 +1,9 @@
+#FF847C Coral
+#BDECB6 Green
+#78B3A4 Sea Green
+#FFAA7D Orange
+#6CF3D5 Cyan
+#b1b2cd Purple
+#A1BEE6 Blue
+#ffde66 Yellow
+#F86254 Red
