@@ -1,0 +1,137 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"] | @Constants.AppName</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </environment>
+</head>
+<body>
+    <div id="wrapper">
+
+        <nav id="navbar">
+            <div id="navbar-left">
+                <button id="nav-droor-button" v-on:click="toggleNavDroor">{{ hamburgerText }}</button>
+                <a id="navbar-logo" class="logo" asp-controller="Home" asp-action="Index">Grid.Cool</a>
+            </div>
+
+            <div id="navbar-right">
+                @if (signInManager.IsSignedIn(User))
+                {
+                    
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Register">Sign up</a><!--
+                    --><a asp-controller="Account" asp-action="Login">Log in</a>
+                }
+            </div>
+        </nav>
+
+        <div id="nav-droor">
+            <div class="nav-droor" v-bind:class="{ 'nav-droor-open': isOpen }">
+                <ul class="nav-droor-ul">
+                    <li class="nav-droor-header">Account</li>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <li><a href="User/@userManager.GetUserName(User)">Profile</a></li>
+                        <li><a asp-action="Manage" title="Manage">Manage</a></li>
+                        <li><a href="javascript:document.getElementById('logout-form').submit();">Log out</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Account" asp-action="Register">Sign up</a></li>
+                        <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
+                    }
+                </ul>
+
+                <ul class="nav-droor-ul">
+                    <li class="nav-droor-header">Links</li>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a target="_blank" href="https://github.com/collenirwin/ImageApp">GitHub</a></li>
+                    <li><a asp-controller="Legal" asp-action="Licenses">Licenses</a></li>
+                    <li><a asp-controller="Legal" asp-action="Tos">Terms of service</a></li>
+                    <li><a asp-controller="Legal" asp-action="Privacy">Privacy</a></li>
+                </ul>
+            </div>
+
+            <div id="nav-droor-blanket" class="nav-droor-blanket"
+                 v-bind:class="{ 'hidden': !isOpen }"
+                 v-on:click="toggle">
+            </div>
+        </div>
+
+        <div id="content">
+
+            @RenderBody()
+
+        </div>
+
+        <footer class="footer desktop-footer">
+
+            <div class="footer-logo-div">
+                <a asp-controller="Home" asp-action="Index"><h3 class="logo">Grid.Cool</h3></a>
+                <p style="font-size: 0.8em;">&copy; 2018 Collen Irwin</p>
+            </div>
+
+            <ul class="footer-links">
+                <li>Links</li>
+                <li class="li-break"></li>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Daily" asp-action="Index">Daily</a></li>
+                <li><a asp-controller="Home" asp-action="About">About</a></li>
+                <li><a target="_blank" href="https://github.com/collenirwin/ImageApp">GitHub</a></li>
+                <li class="li-break"></li>
+                <li><a asp-controller="Legal" asp-action="Licenses">Licenses</a></li>
+                <li><a asp-controller="Legal" asp-action="Tos">Tos</a></li>
+                <li><a asp-controller="Legal" asp-action="Privacy">Privacy</a></li>
+            </ul>
+
+        </footer>
+
+        <footer class="footer mobile-footer">
+
+            <ul>
+                <li>Links</li>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Daily" asp-action="Index">Daily</a></li>
+                <li><a asp-controller="Home" asp-action="About">About</a></li>
+                <li><a target="_blank" href="https://github.com/collenirwin/ImageApp">GitHub</a></li>
+                <li><a asp-controller="Legal" asp-action="Licenses">Licenses</a></li>
+                <li><a asp-controller="Legal" asp-action="Tos">Tos</a></li>
+                <li><a asp-controller="Legal" asp-action="Privacy">Privacy</a></li>
+                <li><p style="font-size: 0.8em;">&copy; 2018 Collen Irwin</p></li>
+            </ul>
+
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/navdroor.js"></script>
+        <script src="~/js/navbar.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/navdroor.js"></script>
+        <script src="~/js/navbar.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

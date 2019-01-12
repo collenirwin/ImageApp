@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ImageGeneration</name>
+    </assembly>
+    <members>
+        <member name="T:ImageGeneration.GeneratedImage">
+            <summary>
+            Represents a generated image
+            (a generated image half with the other half reflected over the horizontal axis)
+            </summary>
+        </member>
+        <member name="P:ImageGeneration.GeneratedImage.Size">
+            <summary>
+            Number of rows and columns in the full image
+            (for example, a Size of 10 would result in a 10 by 10 "pixel" image)
+            </summary>
+        </member>
+        <member name="P:ImageGeneration.GeneratedImage.Pixels">
+            <summary>
+            Boolean matrix that represents the pixels of the image
+            (true -> filled, false -> blank)
+            </summary>
+        </member>
+        <member name="T:ImageGeneration.ImageGenerator">
+            <summary>
+            Provides methods for generating random images and image halves
+            </summary>
+        </member>
+        <member name="M:ImageGeneration.ImageGenerator.GenerateImage(System.Int32,System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Generates a <see cref="M:ImageGeneration.ImageGenerator.GenerateImage(System.Int32,System.Double,System.Nullable{System.Int32})"/> with the specified size, color, and fill chance
+            </summary>
+            <param name="size">Number of rows and columns in the full image (must be even, minimum is 2)</param>
+            <param name="fillChance">Chance to color a rectangle out of 1.0</param>
+            <param name="seed">
+            Optional integer to seed the Random object with (default time-based seed used if left null)
+            </param>
+            <returns>
+            A <see cref="M:ImageGeneration.ImageGenerator.GenerateImage(System.Int32,System.Double,System.Nullable{System.Int32})"/> object with randomly selected <see cref="!:GenerateImage.Pixels"/>
+            based on fillChance
+            </returns>
+        </member>
+        <member name="M:ImageGeneration.ImageGenerator.GenerateImageHalf(System.Int32,System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Generates a <see cref="T:ImageGeneration.GeneratedImageHalf"/> with the specified size, color, and fill chance
+            </summary>
+            <param name="size">Number of rows and columns in the full image (must be even, minimum is 2)</param>
+            <param name="fillChance">Chance to color a rectangle out of 1.0</param>
+            <param name="seed">
+            Optional integer to seed the Random object with (default time-based seed used if left null)
+            </param>
+            <returns>
+            A <see cref="T:ImageGeneration.GeneratedImageHalf"/> object with randomly selected <see cref="!:Pixels"/>
+            based on fillChance
+            </returns>
+        </member>
+        <member name="T:ImageGeneration.GeneratedImageHalf">
+            <summary>
+            Represents half of a generated image
+            </summary>
+        </member>
+        <member name="F:ImageGeneration.GeneratedImageHalf.random">
+            <summary>
+            The <see cref="T:System.Random"/> object used in generating random pixels
+            </summary>
+        </member>
+        <member name="M:ImageGeneration.GeneratedImageHalf.Generate(System.Int32,System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Generates a <see cref="T:ImageGeneration.GeneratedImageHalf"/> with the specified size, color, and fill chance
+            </summary>
+            <param name="size">Number of rows and columns in the full image (must be even, minimum is 2)</param>
+            <param name="fillChance">Chance to color a rectangle out of 1.0</param>
+            <param name="seed">
+            Optional integer to seed the Random object with (default time-based seed used if left null)
+            </param>
+            <returns>
+            A <see cref="T:ImageGeneration.GeneratedImageHalf"/> object with randomly selected <see cref="P:ImageGeneration.GeneratedImageHalf.Pixels"/>
+            based on fillChance
+            </returns>
+        </member>
+        <member name="P:ImageGeneration.GeneratedImageHalf.Size">
+            <summary>
+            Number of rows and columns in the full image
+            (for example, a Size of 10 would result in a 10 by 10 "pixel" image)
+            </summary>
+        </member>
+        <member name="P:ImageGeneration.GeneratedImageHalf.Pixels">
+            <summary>
+            Boolean 2D array that represents the pixels of the image half
+            (true -> filled, false -> blank)
+            </summary>
+        </member>
+    </members>
+</doc>

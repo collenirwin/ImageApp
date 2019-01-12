@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Today";
+}
+
+<style type="text/css">
+    a, button, input[type=submit],
+    .button, #comment-form > label {
+        color: #F86254;
+        background: transparent;
+    }
+
+    .button {
+        margin-left: 10px;
+    }
+
+    button:hover, button:active,
+    input[type=submit]:hover, input[type=submit]:active,
+    .button:hover, .button:active,
+    #navbar-right > a:hover, #navbar-right > a:active {
+        color: #2A363B;
+        background-color: #F86254;
+    }
+
+    #comment-textbox {
+        color: #F86254;
+        border-color: #F86254;
+    }
+</style>
+
+<div id="image-content" class="min-height-adjusted">
+    <input type="hidden" id="grid-color" value="#F86254" />
+    <input type="hidden" id="grid-json" value="[[0,1,0],[1,0,0],[1,1,1],[1,0,1],[0,1,0],[0,0,1]]" />
+
+    <div id="canvas-container" class="hidden">
+        <canvas id="main-canvas" v-bind:width="canvasSize" v-bind:height="canvasSize"></canvas>
+
+        <form method="post" id="comment-form" class="hidden flex-container" autocomplete="off">
+            <label for="comment">What do you see?</label>
+
+            <div class="flex-break"></div>
+
+            <input type="text" name="comment" id="comment-textbox" autocomplete="off"
+                   v-bind:maxlength="commentMaxLength" v-on:input="updateCharsLeftReadout($event)" required />
+
+            <label style="margin-left: 10px;">{{ charsLeftReadout }}</label>
+
+            <input type="submit" value="Submit" class="button" />
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="js/image.js"></script>
+}
