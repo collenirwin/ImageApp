@@ -34,9 +34,10 @@ namespace ImageApp.Services.ImageGeneration
             var imageHalf = ImageGenerator
                 .GenerateImageHalf(_random.Choose(_sizes), _random.Choose(_fillChances));
 
-            // make our own with its properties, a random color, and the current date
+            // make our own with that image half's properties, a random color, and the current date
             return new ImageHalf
             {
+                Id = Guid.NewGuid().ToString(),
                 Color = _random.Choose(ImageHalf.Colors.Keys),
                 Size = imageHalf.Size,
                 Pixels = imageHalf.Pixels,

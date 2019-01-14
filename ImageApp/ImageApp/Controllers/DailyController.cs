@@ -54,7 +54,7 @@ namespace ImageApp.Controllers
                 model.Comment.ImageHalfId = model.ImageHalf.Id;
 
                 // attempt to add the comment to the database
-                bool commentAdded = await _commentService.AddComment(model.Comment);
+                bool commentAdded = await _commentService.AddCommentAsync(model.Comment);
             }
             else
             {

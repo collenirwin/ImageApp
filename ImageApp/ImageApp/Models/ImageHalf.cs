@@ -10,8 +10,9 @@ namespace ImageApp.Models
     /// </summary>
     public class ImageHalf
     {
+        [Key]
         [Required]
-        public string Id { get; internal set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Keys: Color names (ex: CORAL),
