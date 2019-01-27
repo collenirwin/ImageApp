@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace ImageApp.Services
 {
+    /// <summary>
+    /// Provides methods relating to Comments and their storage
+    /// </summary>
     public class CommentService
     {
         private readonly ApplicationDbContext _context;
@@ -48,44 +51,67 @@ namespace ImageApp.Services
         }
 
         /// <summary>
-        /// Gets all of the comments on a specified <see cref="ImageHalf"/>
+        /// Gets all of the comments on a specified <see cref="ImageGrid"/>
         /// as an <see cref="IQueryable"/> object
         /// </summary>
-        /// <param name="imageHalfId">Id of an <see cref="ImageHalf"/> object</param>
+        /// <param name="imageGridId">Id of an <see cref="ImageGrid"/> object</param>
         /// <returns>null if unsuccessful</returns>
-        private IQueryable<Comment> GetCommentsQueryable(string imageHalfId)
+        private IQueryable<Comment> GetCommentsQueryable(string imageGridId)
         {
             try
             {
                 return _context.Comments
-                    .Where(comment => comment.ImageHalfId == imageHalfId);
+                    .Where(comment => comment.ImageGridId == imageGridId);
             }
             catch (Exception ex)
             {
-                _logger.Log($"Getting comments as IQueryable: {imageHalfId ?? "null"}", ex);
+                _logger.Log($"Getting comments as IQueryable: {imageGridId ?? "null"}", ex);
                 return null;
             }
         }
 
         /// <summary>
-        /// Gets all of the comments on a specified <see cref="ImageHalf"/>
+        /// Gets all of the comments on a specified <see cref="ImageGrid"/>
         /// ordered by <see cref="Comment.DateCreated"/>
         /// </summary>
-        /// <param name="imageHalfId">Id of an <see cref="ImageHalf"/> object</param>
+        /// <param name="imageGridId">Id of an <see cref="ImageGrid"/> object</param>
         /// <param name="newestFirst">Sort descending?</param>
         /// <returns>null if unsuccessful</returns>
-        public async Task<Comment[]> GetCommentsOrderedByDateCreatedAsync(string imageHalfId,
+        public async Task<Comment[]> GetCommentsOrderedByDateCreatedAsync(string imageGridId,
             bool newestFirst = true)
         {
             try
             {
-                return await GetCommentsQueryable(imageHalfId)
+                return await GetCommentsQueryable(imageGridId)
                     .OrderBy(comment => comment.DateCreated, descending: newestFirst)
+                    .AsNoTracking()
                     .ToArrayAsync();
             }
             catch (Exception ex)
             {
-                _logger.Log($"Getting comments (newest first): {imageHalfId ?? "null"}", ex);
+                _logger.Log($"Getting comments (newest first): {imageGridId ?? "null"}", ex);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the top rated comment on the specified image half
+        /// </summary>
+        /// <param name="imageGridId">Id of an <see cref="ImageGrid"/> object</param>
+        /// <returns>null if unsuccessful</returns>
+        public async Task<Comment> GetTopComment(string imageGridId)
+        {
+            try
+            {
+                return await _context.Comments
+                    .Where(comment => comment.ImageGridId == imageGridId)
+                    .OrderByDescending(comment => comment.Rating)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log($"Getting top comment for: {imageGridId ?? "null"}", ex);
                 return null;
             }
         }

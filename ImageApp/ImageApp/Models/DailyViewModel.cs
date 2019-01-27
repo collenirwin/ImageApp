@@ -8,7 +8,7 @@ namespace ImageApp.Models
     public class DailyViewModel
     {
         [Required]
-        public ImageHalf ImageHalf { get; set; }
+        public ImageGrid ImageHalf { get; set; }
 
         [Required]
         public Comment Comment { get; set; }

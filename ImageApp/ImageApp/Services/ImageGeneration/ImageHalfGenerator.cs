@@ -6,7 +6,7 @@ using System;
 namespace ImageApp.Services.ImageGeneration
 {
     /// <summary>
-    /// Used for generating <see cref="ImageHalf"/> objects with random properties within defined ranges
+    /// Used for generating <see cref="ImageGrid"/> objects with random properties within defined ranges
     /// </summary>
     public class ImageHalfGenerator
     {
@@ -26,21 +26,21 @@ namespace ImageApp.Services.ImageGeneration
         private readonly Random _random = new Random();
 
         /// <summary>
-        /// Generate an <see cref="ImageHalf"/> object with random properties within defined ranges
+        /// Generate an <see cref="ImageGrid"/> object with random properties within defined ranges
         /// </summary>
-        public ImageHalf Generate()
+        public ImageGrid Generate()
         {
-            // use the ImageGeneration library to spin up an image half
+            // use the ImageGeneration library to spin up an image grid half
             var imageHalf = ImageGenerator
                 .GenerateImageHalf(_random.Choose(_sizes), _random.Choose(_fillChances));
 
             // make our own with that image half's properties, a random color, and the current date
-            return new ImageHalf
+            return new ImageGrid
             {
                 Id = Guid.NewGuid().ToString(),
-                Color = _random.Choose(ImageHalf.Colors.Keys),
+                Color = _random.Choose(ImageGrid.Colors.Keys),
                 Size = imageHalf.Size,
-                Pixels = imageHalf.Pixels,
+                Half = imageHalf.Pixels,
                 DateCreated = DateTime.UtcNow
             };
         }

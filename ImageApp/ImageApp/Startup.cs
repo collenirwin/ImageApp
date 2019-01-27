@@ -1,7 +1,9 @@
 ﻿using ImageApp.Data;
 using ImageApp.Models;
+using ImageApp.Services;
 using ImageApp.Services.ImageGeneration;
 using ImageApp.Services.Logging;
+using ImageApp.Services.Scheduling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -89,8 +91,10 @@ namespace ImageApp
 
             services.AddScoped<ILogger, SimpleFileLogger>();
             services.AddScoped<ImageHalfGenerator>();
+            services.AddScoped<CommentService>();
+            services.AddHostedService<DailyImageService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         /// <summary>

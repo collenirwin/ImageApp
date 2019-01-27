@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ImageApp.Models
 {
@@ -17,15 +18,20 @@ namespace ImageApp.Models
         public string UserId { get; set; }
 
         /// <summary>
-        /// Id of the image this comment is on
+        /// The id of the image grid this comment is on
         /// </summary>
-        public string ImageHalfId { get; set; }
+        public string ImageGridId { get; set; }
+
+        /// <summary>
+        /// The image grid this comment is on
+        /// </summary>
+        public ImageGrid ImageGrid { get; set; }
 
         /// <summary>
         /// Comment text itself
         /// </summary>
         [Required]
-        [StringLength(50, ErrorMessage = "Please make sure your comment is between {2} and {1} characters", MinimumLength = 1)]
+        [StringLength(50, ErrorMessage = "Please make sure your comment is between {2} and {1} characters.", MinimumLength = 1)]
         public string Text { get; set; }
 
         /// <summary>
@@ -37,6 +43,15 @@ namespace ImageApp.Models
         /// How many people thought this comment was bad
         /// </summary>
         public int Downvotes { get; set; }
+
+        /// <summary>
+        /// <see cref="Upvotes"/> - <see cref="Downvotes"/>
+        /// </summary>
+        [NotMapped]
+        public int Rating
+        {
+            get => Upvotes - Downvotes;
+        }
 
         /// <summary>
         /// Date and time this comment was written

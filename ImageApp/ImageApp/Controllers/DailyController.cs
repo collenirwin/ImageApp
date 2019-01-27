@@ -9,7 +9,7 @@ namespace ImageApp.Controllers
     /// <summary>
     /// Handles serving the daily images
     /// </summary>
-    public class DailyController : Controller
+    public class DailyController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly CommentService _commentService;
@@ -21,10 +21,10 @@ namespace ImageApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int id = 1)
+        public IActionResult Index(int index = 1)
         {
-            // only accept ids between 1 and 10
-            if (id < 1 || id > 10)
+            // only accept indexes between 1 and 10
+            if (index < 1 || index > 10)
             {
                 return RedirectToAction(nameof(Done));
             }
@@ -32,7 +32,7 @@ namespace ImageApp.Controllers
             var model = new DailyViewModel
             {
                 Comment = new Comment(),
-                ImageHalf = new ImageHalf() // TODO: Write a service for ImageHalfs and a method to get one of
+                ImageHalf = new ImageGrid() // TODO: Write a service for ImageHalfs and a method to get one of
                                             // today's ImageHalfs by a number
             };
 
@@ -51,7 +51,7 @@ namespace ImageApp.Controllers
 
                 // TODO: Check for the ImageHalf in the db by its id before doing this?
                 // to prevent this comment from being tied to a different or nonexistant image
-                model.Comment.ImageHalfId = model.ImageHalf.Id;
+                model.Comment.ImageGrid = model.ImageHalf;
 
                 // attempt to add the comment to the database
                 bool commentAdded = await _commentService.AddCommentAsync(model.Comment);

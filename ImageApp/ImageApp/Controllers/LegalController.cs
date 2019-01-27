@@ -2,7 +2,7 @@
 
 namespace ImageApp.Controllers
 {
-    public class LegalController : Controller
+    public class LegalController : BaseController
     {
         public IActionResult Licenses()
         {

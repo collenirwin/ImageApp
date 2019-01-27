@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ImageApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using ImageApp.Models;
+using System.Diagnostics;
 
 namespace ImageApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
